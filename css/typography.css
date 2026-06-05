@@ -1,0 +1,178 @@
+/* ============================================
+   TYPOGRAPHY.CSS — Font Loading & Type Scale
+   ============================================ */
+
+/* --- Display Headings --- */
+.heading-display {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(3rem, 8vw, 9rem);
+  line-height: 0.95;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
+  color: var(--text-primary);
+}
+
+.heading-xl {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(2.5rem, 6vw, 6rem);
+  line-height: 1;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  color: var(--text-primary);
+}
+
+.heading-lg {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(2rem, 5vw, 5rem);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  color: var(--text-primary);
+}
+
+.heading-md {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(1.5rem, 3vw, 2.5rem);
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  color: var(--text-primary);
+}
+
+.heading-sm {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(1.2rem, 2vw, 1.75rem);
+  line-height: 1.2;
+  color: var(--text-primary);
+}
+
+/* --- Body Text --- */
+.text-body {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 1.1rem;
+  line-height: 1.7;
+  color: var(--text-secondary);
+}
+
+.text-body-lg {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: clamp(1.1rem, 1.5vw, 1.35rem);
+  line-height: 1.7;
+  color: var(--text-secondary);
+}
+
+.text-small {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: var(--text-secondary);
+}
+
+/* --- Labels & Navigation --- */
+.text-label {
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: 0.8rem;
+  line-height: 1;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+}
+
+.text-label-sm {
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: 0.7rem;
+  line-height: 1;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+/* --- Accent Text --- */
+.text-accent {
+  color: var(--accent);
+}
+
+/* --- Outlined Text (stroke only) --- */
+.text-outline {
+  -webkit-text-stroke: 1.5px var(--text-primary);
+  -webkit-text-fill-color: transparent;
+}
+
+.text-outline:hover {
+  -webkit-text-fill-color: var(--text-primary);
+  transition: -webkit-text-fill-color var(--duration-normal) var(--ease-out);
+}
+
+/* --- Split text wrappers --- */
+.split-parent {
+  overflow: hidden;
+}
+
+.split-child {
+  display: inline-block;
+}
+
+/* --- Word-by-word reveal wrapper --- */
+.word {
+  display: inline-block;
+  overflow: hidden;
+}
+
+.word-inner {
+  display: inline-block;
+  transform: translateY(105%);
+  will-change: transform;
+}
+
+/* --- Character wrapper for character reveals --- */
+.char {
+  display: inline-block;
+  will-change: transform, opacity;
+}
+
+/* --- Line reveal --- */
+.line-reveal {
+  overflow: hidden;
+}
+
+.line-reveal-inner {
+  transform: translateY(100%);
+  will-change: transform;
+}
+
+/* --- Marquee / Ticker --- */
+.marquee {
+  display: flex;
+  overflow: hidden;
+  white-space: nowrap;
+  gap: 2rem;
+}
+
+.marquee-inner {
+  display: flex;
+  gap: 2rem;
+  animation: marquee-scroll 25s linear infinite;
+  flex-shrink: 0;
+}
+
+@keyframes marquee-scroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-100%); }
+}
+
+/* --- Number/Index styling --- */
+.number-index {
+  font-family: var(--font-body);
+  font-weight: 300;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  font-variant-numeric: tabular-nums;
+}

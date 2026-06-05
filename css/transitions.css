@@ -1,0 +1,104 @@
+/* ============================================
+   TRANSITIONS.CSS — Barba.js Page Transitions
+   ============================================ */
+
+/* =========================
+   PAGE TRANSITION OVERLAY
+   ========================= */
+.transition-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  height: 100dvh;
+  z-index: var(--z-transition);
+  pointer-events: none;
+  display: flex;
+  flex-direction: column;
+}
+
+.transition-column {
+  width: 100%;
+  flex: 1;
+  background: var(--bg-secondary);
+  transform: scaleY(0);
+  transform-origin: bottom;
+  will-change: transform;
+}
+
+/* --- Alternative: single sheet with rounded top --- */
+.transition-sheet {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  height: 100dvh;
+  z-index: var(--z-transition);
+  background: var(--bg-secondary);
+  transform: translateY(calc(100% + 60px));
+  will-change: transform;
+  pointer-events: none;
+}
+
+.transition-sheet .rounded-top {
+  position: absolute;
+  top: -59px;
+  left: 0;
+  width: 100%;
+  height: 60px;
+  overflow: hidden;
+}
+
+.transition-sheet .rounded-top-inner {
+  width: 150%;
+  height: 500%;
+  position: absolute;
+  border-radius: 50%;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 0;
+  background: var(--bg-secondary);
+}
+
+/* --- Transition page name --- */
+.transition-name {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: calc(var(--z-transition) + 1);
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(2rem, 5vw, 4rem);
+  color: var(--text-primary);
+  text-transform: uppercase;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* =========================
+   PAGE CONTENT WRAPPER
+   ========================= */
+[data-barba="container"] {
+  will-change: opacity;
+}
+
+/* --- Ensure smooth transitions between pages --- */
+.barba-leave-active,
+.barba-enter-active {
+  transition: opacity 0.5s ease;
+}
+
+.barba-leave-to {
+  opacity: 0;
+}
+
+.barba-enter {
+  opacity: 0;
+}
+
+.barba-enter-to {
+  opacity: 1;
+}

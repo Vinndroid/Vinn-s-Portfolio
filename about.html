@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About — Vinn Babu • DevOps & Automation Engineer</title>
+  <meta name="description" content="Learn about Vinn Babu's background in DevOps, Linux systems administration, Python automation, containerization, and CI/CD pipelines.">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/typography.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/sections.css">
+  <link rel="stylesheet" href="css/animations.css">
+  <link rel="stylesheet" href="css/transitions.css">
+</head>
+<body data-barba="wrapper">
+
+  <div class="noise-overlay"></div>
+
+  <div class="cursor" id="cursor">
+    <span class="cursor-text">VIEW</span>
+  </div>
+  <div class="cursor-dot" id="cursor-dot"></div>
+
+  <div class="transition-sheet" id="transition-sheet">
+    <div class="rounded-top"><div class="rounded-top-inner"></div></div>
+  </div>
+  <div class="transition-name" id="transition-name"></div>
+
+  <!-- Navigation -->
+  <nav class="nav" id="nav">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo magnetic" data-magnetic data-barba-link>
+        <span class="logo-name">VINN<span class="accent">.</span></span>
+        <span class="logo-tagline">Design by vinnbabu</span>
+      </a>
+      <div class="nav-links">
+        <a href="index.html#work" class="nav-link magnetic" data-magnetic>Work</a>
+        <a href="about.html" class="nav-link active magnetic" data-magnetic data-barba-link>About</a>
+        <a href="index.html#contact" class="nav-link magnetic" data-magnetic>Contact</a>
+      </div>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <div class="mobile-menu" id="mobile-menu">
+    <a href="index.html" class="mobile-link">Home</a>
+    <a href="index.html#work" class="mobile-link">Work</a>
+    <a href="about.html" class="mobile-link" data-barba-link>About</a>
+    <a href="index.html#contact" class="mobile-link">Contact</a>
+  </div>
+
+  <!-- Floating Circular Menu Button -->
+  <button class="floating-menu magnetic" id="floating-menu" aria-label="Toggle menu" data-magnetic>
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
+
+  <main data-barba="container" data-barba-namespace="about">
+
+    <!-- About Split Section (Sticky left manifesto + scrolling right technical blocks) -->
+    <section class="about-split-section section" id="about">
+      <div class="container">
+        <div class="about-split-grid">
+          <!-- Left Column (.about-left - Sticky Manifesto) -->
+          <div class="about-left-col">
+            <div class="sticky-manifesto">
+              <div class="section-label" style="margin-bottom: 1.5rem;">
+                <div class="section-line"></div>
+                <span class="text-label">About Me</span>
+              </div>
+              <h2 class="heading-md reveal-up" data-animate style="margin-bottom: 2rem;">
+                I'm a <span class="text-accent">Computer Science student</span> and aspiring <span class="text-accent">DevOps Engineer</span> passionate about building, automating, and deploying scalable applications.
+              </h2>
+              <p class="text-body reveal-up" data-animate data-delay="0.1" style="margin-bottom: 2rem; font-size: 1.15rem; line-height: 1.8;">
+                Alongside DevOps, I enjoy creating digital products, combining technical problem-solving with user-focused design to improve reliability and development workflows.
+              </p>
+              <a href="index.html#contact" class="btn magnetic reveal-up" data-animate data-delay="0.2" data-magnetic>
+                <span class="btn-text">Get in Touch</span>
+                <span class="btn-icon">→</span>
+              </a>
+            </div>
+          </div>
+          
+          <!-- Right Column (.about-right - Scrolling Content Blocks) -->
+          <div class="about-right-col">
+            <!-- Block 01: Current Focus -->
+            <div class="tech-block reveal-up" data-animate>
+              <span class="tech-num">01 / FOCUS AREA</span>
+              <h3 class="tech-title">Current Focus</h3>
+              <ul class="focus-list" style="margin-top: 1rem; display: flex; flex-direction: column; gap: 0.8rem; font-family: var(--font-body); color: var(--text-secondary); font-size: 1.05rem;">
+                <li style="display: flex; align-items: center; gap: 0.75rem;">
+                  <span style="color: var(--accent); font-weight: bold;">•</span> Learning Kubernetes & AWS
+                </li>
+                <li style="display: flex; align-items: center; gap: 0.75rem;">
+                  <span style="color: var(--accent); font-weight: bold;">•</span> Building CI/CD Pipelines
+                </li>
+                <li style="display: flex; align-items: center; gap: 0.75rem;">
+                  <span style="color: var(--accent); font-weight: bold;">•</span> Infrastructure as Code (IaC)
+                </li>
+                <li style="display: flex; align-items: center; gap: 0.75rem;">
+                  <span style="color: var(--accent); font-weight: bold;">•</span> Monitoring & Observability
+                </li>
+                <li style="display: flex; align-items: center; gap: 0.75rem;">
+                  <span style="color: var(--accent); font-weight: bold;">•</span> Cloud-Native Applications
+                </li>
+              </ul>
+            </div>
+            
+            <!-- Block 02: Core Technologies -->
+            <div class="tech-block reveal-up" data-animate data-delay="0.1">
+              <span class="tech-num">02 / SKILLSET</span>
+              <h3 class="tech-title">Core Technologies</h3>
+              <div class="tech-tags-grid" style="margin-top: 1.5rem; display: flex; flex-wrap: wrap; gap: 0.75rem;">
+                <span class="tech-tag" style="padding: 0.5rem 1rem; border: 1px solid var(--border-color); border-radius: var(--radius-full); font-family: var(--font-body); font-size: 0.9rem; color: var(--text-primary); background: rgba(255,255,255,0.02); transition: all 0.3s ease; will-change: transform;">Linux</span>
+                <span class="tech-tag" style="padding: 0.5rem 1rem; border: 1px solid var(--border-color); border-radius: var(--radius-full); font-family: var(--font-body); font-size: 0.9rem; color: var(--text-primary); background: rgba(255,255,255,0.02); transition: all 0.3s ease; will-change: transform;">Git & GitHub</span>
+                <span class="tech-tag" style="padding: 0.5rem 1rem; border: 1px solid var(--border-color); border-radius: var(--radius-full); font-family: var(--font-body); font-size: 0.9rem; color: var(--text-primary); background: rgba(255,255,255,0.02); transition: all 0.3s ease; will-change: transform;">Docker</span>
+                <span class="tech-tag" style="padding: 0.5rem 1rem; border: 1px solid var(--border-color); border-radius: var(--radius-full); font-family: var(--font-body); font-size: 0.9rem; color: var(--text-primary); background: rgba(255,255,255,0.02); transition: all 0.3s ease; will-change: transform;">Kubernetes</span>
+                <span class="tech-tag" style="padding: 0.5rem 1rem; border: 1px solid var(--border-color); border-radius: var(--radius-full); font-family: var(--font-body); font-size: 0.9rem; color: var(--text-primary); background: rgba(255,255,255,0.02); transition: all 0.3s ease; will-change: transform;">AWS</span>
+                <span class="tech-tag" style="padding: 0.5rem 1rem; border: 1px solid var(--border-color); border-radius: var(--radius-full); font-family: var(--font-body); font-size: 0.9rem; color: var(--text-primary); background: rgba(255,255,255,0.02); transition: all 0.3s ease; will-change: transform;">Terraform</span>
+                <span class="tech-tag" style="padding: 0.5rem 1rem; border: 1px solid var(--border-color); border-radius: var(--radius-full); font-family: var(--font-body); font-size: 0.9rem; color: var(--text-primary); background: rgba(255,255,255,0.02); transition: all 0.3s ease; will-change: transform;">Jenkins</span>
+                <span class="tech-tag" style="padding: 0.5rem 1rem; border: 1px solid var(--border-color); border-radius: var(--radius-full); font-family: var(--font-body); font-size: 0.9rem; color: var(--text-primary); background: rgba(255,255,255,0.02); transition: all 0.3s ease; will-change: transform;">Python</span>
+                <span class="tech-tag" style="padding: 0.5rem 1rem; border: 1px solid var(--border-color); border-radius: var(--radius-full); font-family: var(--font-body); font-size: 0.9rem; color: var(--text-primary); background: rgba(255,255,255,0.02); transition: all 0.3s ease; will-change: transform;">Bash Scripting</span>
+                <span class="tech-tag" style="padding: 0.5rem 1rem; border: 1px solid var(--border-color); border-radius: var(--radius-full); font-family: var(--font-body); font-size: 0.9rem; color: var(--text-primary); background: rgba(255,255,255,0.02); transition: all 0.3s ease; will-change: transform;">Prometheus</span>
+                <span class="tech-tag" style="padding: 0.5rem 1rem; border: 1px solid var(--border-color); border-radius: var(--radius-full); font-family: var(--font-body); font-size: 0.9rem; color: var(--text-primary); background: rgba(255,255,255,0.02); transition: all 0.3s ease; will-change: transform;">Grafana</span>
+              </div>
+            </div>
+            
+            <!-- Block 03: Performance Stats -->
+            <div class="tech-block reveal-up" data-animate data-delay="0.2">
+              <span class="tech-num">03 / THE NUMBERS</span>
+              <h3 class="tech-title">The Numbers</h3>
+              <div class="stats-grid" style="margin-top: 1.5rem; display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem;">
+                <div class="stat-item">
+                  <div class="stat-number" style="font-family: var(--font-display); font-weight: 800; font-size: clamp(2rem, 3.5vw, 3.5rem); color: var(--accent); line-height: 1;">500+</div>
+                  <div class="stat-label" style="font-family: var(--font-body); font-size: 0.85rem; color: var(--text-secondary); margin-top: 0.5rem; text-transform: uppercase; letter-spacing: 0.05em;">Hours of Self-Learning</div>
+                </div>
+                <div class="stat-item">
+                  <div class="stat-number" style="font-family: var(--font-display); font-weight: 800; font-size: clamp(2rem, 3.5vw, 3.5rem); color: var(--accent); line-height: 1;">10+</div>
+                  <div class="stat-label" style="font-family: var(--font-body); font-size: 0.85rem; color: var(--text-secondary); margin-top: 0.5rem; text-transform: uppercase; letter-spacing: 0.05em;">Hands-On Labs Completed</div>
+                </div>
+                <div class="stat-item">
+                  <div class="stat-number" style="font-family: var(--font-display); font-weight: 800; font-size: clamp(2rem, 3.5vw, 3.5rem); color: var(--accent); line-height: 1;">3+</div>
+                  <div class="stat-label" style="font-family: var(--font-body); font-size: 0.85rem; color: var(--text-secondary); margin-top: 0.5rem; text-transform: uppercase; letter-spacing: 0.05em;">DevOps Projects Built</div>
+                </div>
+                <div class="stat-item">
+                  <div class="stat-number" style="font-family: var(--font-display); font-weight: 800; font-size: clamp(2rem, 3.5vw, 3.5rem); color: var(--accent); line-height: 1;">∞</div>
+                  <div class="stat-label" style="font-family: var(--font-body); font-size: 0.85rem; color: var(--text-secondary); margin-top: 0.5rem; text-transform: uppercase; letter-spacing: 0.05em;">Continuous Learning Every Day</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Marquee Strip -->
+    <div class="marquee-strip section-sm">
+      <div class="marquee">
+        <div class="marquee-inner">
+          <span class="marquee-item">Automate <span class="marquee-dot"></span></span>
+          <span class="marquee-item">Deploy <span class="marquee-dot"></span></span>
+          <span class="marquee-item">Monitor <span class="marquee-dot"></span></span>
+          <span class="marquee-item">Scale <span class="marquee-dot"></span></span>
+          <span class="marquee-item">Secure <span class="marquee-dot"></span></span>
+          <span class="marquee-item">Optimize <span class="marquee-dot"></span></span>
+        </div>
+        <div class="marquee-inner" aria-hidden="true">
+          <span class="marquee-item">Automate <span class="marquee-dot"></span></span>
+          <span class="marquee-item">Deploy <span class="marquee-dot"></span></span>
+          <span class="marquee-item">Monitor <span class="marquee-dot"></span></span>
+          <span class="marquee-item">Scale <span class="marquee-dot"></span></span>
+          <span class="marquee-item">Secure <span class="marquee-dot"></span></span>
+          <span class="marquee-item">Optimize <span class="marquee-dot"></span></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Technical Certifications Section (Split Layout) -->
+    <section class="section" id="certifications">
+      <div class="container">
+        <div class="certs-split-container">
+          <!-- Left Column: Sticky Info -->
+          <div class="certs-left-sticky reveal-up" data-animate>
+            <div class="section-label" style="margin-bottom: 1.5rem;">
+              <div class="section-line"></div>
+              <span class="text-label">CREDENTIALS</span>
+            </div>
+            <h2>Technical Certifications</h2>
+            <p>Validation over assumptions. In DevOps, certifications aren't just badges—they are a rigorous proof of hands-on capability in architectural design, cloud provisioning, and keeping production systems stable under pressure.</p>
+          </div>
+
+          <!-- Right Column: Scrolling Cards Stack -->
+          <div class="certs-right-scroll-stack">
+            <!-- Card 01 — IBM DevOps -->
+            <div class="cert-premium-card reveal-up" data-animate data-cursor="VIEW">
+              <div class="cert-card-img-preview">
+                <img src="assets/images/image_0d0a63.jpg" alt="IBM DevOps Certificate Document" loading="lazy">
+              </div>
+              <div class="cert-premium-card-header">
+                <span class="cert-premium-meta">IBM × Coursera • June 2026</span>
+                <span class="cert-premium-pill">DEVOPS FOUNDATIONS</span>
+              </div>
+              <h3 class="cert-premium-title">Introduction to DevOps</h3>
+              <p class="cert-premium-desc">Professional certification covering core DevOps fundamentals, cultural shifts, test-driven development, agile workflows, and continuous automated integration pipelines authorized by IBM.</p>
+              <div class="cert-premium-tech-tags">
+                <span class="tech-premium-pill">DevOps</span>
+                <span class="tech-premium-pill">CI/CD</span>
+                <span class="tech-premium-pill">Agile</span>
+                <span class="tech-premium-pill">Automation</span>
+              </div>
+              <div class="cert-premium-actions">
+                <a href="https://www.coursera.org/account/accomplishments/verify/NRRU59QX3FNC" target="_blank" rel="noopener noreferrer" class="btn btn-accent magnetic" data-magnetic>
+                  <span class="btn-text">Verify Certificate ↗</span>
+                </a>
+              </div>
+            </div>
+
+            <!-- Card 02 — AWS Cloud Practitioner -->
+            <div class="cert-premium-card reveal-up" data-animate data-cursor="VIEW">
+              <div class="cert-card-img-preview">
+                <img src="assets/images/image_0d0a05.png" alt="AWS Cloud Practitioner Certificate Document" loading="lazy">
+              </div>
+              <div class="cert-premium-card-header">
+                <span class="cert-premium-meta">AWS Training & Certification • February 2026</span>
+                <span class="cert-premium-pill">CLOUD COMPUTING</span>
+              </div>
+              <h3 class="cert-premium-title">AWS Certified Cloud Practitioner (CLF-C02)</h3>
+              <p class="cert-premium-desc">Validation of core Amazon Web Services cloud infrastructure concepts, global network deployment, core cloud services, security baselines, and architectural models.</p>
+              <div class="cert-premium-tech-tags">
+                <span class="tech-premium-pill">AWS</span>
+                <span class="tech-premium-pill">Cloud Infrastructure</span>
+                <span class="tech-premium-pill">CLF-C02</span>
+                <span class="tech-premium-pill">IAM</span>
+              </div>
+              <div class="cert-premium-actions">
+                <a href="https://www.credly.com/badges/dc7a5d96-82d3-492b-b7e6-6b271e6ba5c9" target="_blank" rel="noopener noreferrer" class="btn btn-accent magnetic" data-magnetic>
+                  <span class="btn-text">Verify Certificate ↗</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- CTA Section -->
+    <section class="contact section" id="cta">
+      <div class="container">
+        <div class="contact-header">
+          <h2 class="reveal-up" data-animate>
+            LET'S <span class="accent-word">BUILD</span><br>TOGETHER
+          </h2>
+        </div>
+        <div style="text-align: center;">
+          <a href="index.html#contact" class="btn btn-accent magnetic reveal-up" data-animate data-delay="0.15" data-magnetic data-barba-link>
+            <span class="btn-text">Start a Project</span>
+            <span class="btn-icon">→</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <div class="snellenberg-curve-wrapper">
+      <svg viewBox="0 0 1440 100" preserveAspectRatio="none" class="curve-svg">
+        <path id="fluid-curve-path" d="M0 100 Q 720 0 1440 100 Z" fill="#1c1d20" />
+      </svg>
+    </div>
+    <footer class="footer" id="footer">
+      <div class="footer-inner">
+        <div class="footer-left">
+          © 2026 Vinn Babu<span class="accent">.</span> All rights reserved.
+        </div>
+        <div class="footer-center">
+          <a href="#" class="social-link magnetic" data-magnetic target="_blank" rel="noopener">LinkedIn</a>
+          <a href="#" class="social-link magnetic" data-magnetic target="_blank" rel="noopener">GitHub</a>
+          <a href="#" class="social-link magnetic" data-magnetic target="_blank" rel="noopener">Dribbble</a>
+        </div>
+        <div class="footer-right">
+          <span class="footer-time" id="footer-time"></span>
+          <button class="back-to-top magnetic" id="back-to-top" data-magnetic>
+            <span>Top</span>
+            <span class="back-to-top-arrow">↑</span>
+          </button>
+        </div>
+      </div>
+    </footer>
+
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1.3.23/dist/lenis.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/ScrollTrigger.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@barba/core@2.9.7/dist/barba.umd.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
+
+  <script src="js/smooth-scroll.js"></script>
+  <script src="js/cursor.js"></script>
+  <script src="js/magnetic.js"></script>
+  <script src="js/three-bg.js"></script>
+  <script src="js/animations.js"></script>
+  <script src="js/transitions.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
