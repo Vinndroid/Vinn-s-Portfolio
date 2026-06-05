@@ -503,12 +503,12 @@ const Animations = (() => {
 
     if (currentNamespace === 'project') {
       clearActive();
-      const workLink = Array.from(mobileLinks).find(link => {
+      const projectLink = Array.from(mobileLinks).find(link => {
         const href = link.getAttribute('href') || '';
-        return href.includes('work') || href === '#work';
+        return href.includes('project') || href === '#project';
       });
-      if (workLink) {
-        workLink.classList.add('active');
+      if (projectLink) {
+        projectLink.classList.add('active');
       }
       return;
     }
@@ -535,6 +535,11 @@ const Animations = (() => {
 
         // Cross-page hash match: index.html#work, index.html#contact, etc.
         if (href === 'index.html#' + sectionId) {
+          return mobileLinks[i];
+        }
+
+        // Map section 'work' to Projects page link
+        if (sectionId === 'work' && (href.includes('project') || href === '#work' || href === 'index.html#work')) {
           return mobileLinks[i];
         }
       }
