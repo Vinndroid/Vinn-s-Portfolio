@@ -1,13 +1,17 @@
 /* ============================================
-   CURSOR.JS — Custom Dynamic Cursor
+   CURSOR.JS — High-Performance GPU-Accelerated Custom Cursor
+   Uses Linear Interpolation (LERP) + requestAnimationFrame
    ============================================ */
 
 const Cursor = (() => {
-  let cursor, cursorDot;
+  let cursor;
   let mouseX = 0, mouseY = 0;
+  let cursorX = 0, cursorY = 0;
   let isVisible = false;
-  let cursorXTo, cursorYTo;
-  let dotXTo, dotYTo;
+  let rafId = null;
+
+  // LERP factor — lower = smoother/laggier, higher = snappier
+  const LERP_FACTOR = 0.15;
 
   // Check for touch device
   const isTouchDevice = () => {
@@ -17,16 +21,8 @@ const Cursor = (() => {
   function init() {
     if (isTouchDevice()) return;
 
-    cursor = document.getElementById('cursor');
-    cursorDot = document.getElementById('cursor-dot');
-
-    if (!cursor || !cursorDot) return;
-
-    // Initialize GSAP quickTo setters for ultra-smooth performance
-    cursorXTo = gsap.quickTo(cursor, "x", { duration: 0.35, ease: "power2.out" });
-    cursorYTo = gsap.quickTo(cursor, "y", { duration: 0.35, ease: "power2.out" });
-    dotXTo = gsap.quickTo(cursorDot, "x", { duration: 0.15, ease: "power2.out" });
-    dotYTo = gsap.quickTo(cursorDot, "y", { duration: 0.15, ease: "power2.out" });
+    cursor = document.getElementById('custom-cursor');
+    if (!cursor) return;
 
     document.addEventListener('mousemove', onMouseMove);
     document.addEventListener('mouseenter', () => { isVisible = true; updateVisibility(); });
@@ -34,8 +30,8 @@ const Cursor = (() => {
 
     bindHoverEvents();
 
-    // Use GSAP ticker for continuous updates on every frame (glued to mouse on scroll)
-    gsap.ticker.add(tick);
+    // Start the LERP animation loop
+    rafId = requestAnimationFrame(renderCursor);
   }
 
   function onMouseMove(e) {
@@ -50,60 +46,64 @@ const Cursor = (() => {
 
   function updateVisibility() {
     if (cursor) cursor.style.opacity = isVisible ? '1' : '0';
-    if (cursorDot) cursorDot.style.opacity = isVisible ? '1' : '0';
   }
 
-  function tick() {
-    if (!isVisible) return;
+  function renderCursor() {
+    if (isVisible && cursor) {
+      // LERP: smoothly interpolate cursor position toward mouse
+      cursorX += (mouseX - cursorX) * LERP_FACTOR;
+      cursorY += (mouseY - cursorY) * LERP_FACTOR;
 
-    // Continuously update position centering the cursor
-    if (cursor) {
-      cursorXTo(mouseX - cursor.offsetWidth / 2);
-      cursorYTo(mouseY - cursor.offsetHeight / 2);
-    }
-    if (cursorDot) {
-      dotXTo(mouseX - cursorDot.offsetWidth / 2);
-      dotYTo(mouseY - cursorDot.offsetHeight / 2);
-    }
+      // GPU-accelerated transform — no layout thrashing
+      cursor.style.transform = `translate3d(${cursorX}px, ${cursorY}px, 0) translate(-50%, -50%)`;
 
-    // Dynamic hover check on scroll / tick to prevent getting stuck
-    const el = document.elementFromPoint(mouseX, mouseY);
-    if (el) {
-      const interactive = el.closest('a, button, .magnetic, input, textarea, [data-cursor]');
-      if (interactive) {
-        const cursorType = interactive.getAttribute('data-cursor');
-        if (cursorType) {
-          cursor.classList.add('is-project');
-          const cursorText = cursor.querySelector('.cursor-text');
-          if (cursorText) cursorText.textContent = cursorType;
+      // Dynamic hover check on every frame to prevent stuck states during scroll
+      const el = document.elementFromPoint(mouseX, mouseY);
+      if (el) {
+        const interactive = el.closest('a, button, .magnetic, input, textarea, [data-cursor]');
+        if (interactive) {
+          const cursorType = interactive.getAttribute('data-cursor');
+          if (cursorType) {
+            cursor.classList.add('is-project');
+            cursor.classList.remove('is-link');
+            const cursorText = cursor.querySelector('.cursor-text');
+            if (cursorText) cursorText.textContent = cursorType;
+          } else {
+            cursor.classList.add('is-link');
+            cursor.classList.remove('is-project');
+          }
         } else {
-          cursor.classList.add('is-link');
+          cursor.classList.remove('is-link', 'is-project');
         }
       } else {
         cursor.classList.remove('is-link', 'is-project');
       }
-    } else {
-      cursor.classList.remove('is-link', 'is-project');
     }
+
+    rafId = requestAnimationFrame(renderCursor);
   }
 
   function bindHoverEvents() {
-    // Links, buttons — expand cursor
+    // Links, buttons — expand cursor on hover
     const interactiveElements = document.querySelectorAll('a, button, .magnetic, input, textarea, [data-cursor]');
 
     interactiveElements.forEach(el => {
       el.addEventListener('mouseenter', () => {
+        if (!cursor) return;
         const cursorType = el.getAttribute('data-cursor');
         if (cursorType) {
           cursor.classList.add('is-project');
+          cursor.classList.remove('is-link');
           const cursorText = cursor.querySelector('.cursor-text');
           if (cursorText) cursorText.textContent = cursorType;
         } else {
           cursor.classList.add('is-link');
+          cursor.classList.remove('is-project');
         }
       });
 
       el.addEventListener('mouseleave', () => {
+        if (!cursor) return;
         cursor.classList.remove('is-link', 'is-project');
       });
     });
@@ -114,7 +114,10 @@ const Cursor = (() => {
   }
 
   function destroy() {
-    gsap.ticker.remove(tick);
+    if (rafId) {
+      cancelAnimationFrame(rafId);
+      rafId = null;
+    }
     document.removeEventListener('mousemove', onMouseMove);
   }
 

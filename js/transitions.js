@@ -1,140 +1,122 @@
 /* ============================================
-   TRANSITIONS.JS — Barba.js Page Transitions
+   TRANSITIONS.JS — Premium Page Transitions
    ============================================ */
 
 const Transitions = (() => {
 
   function init() {
-    if (typeof barba === 'undefined') return;
+    const overlay = document.querySelector('.page-transition-overlay');
 
-    barba.init({
-      preventRunning: true,
-      timeout: 10000,
-      transitions: [{
-        name: 'default-transition',
+    if (overlay) {
+      // 1. On Page Load: The Exit Animation (Slide UP and out)
+      // Because CSS default is translateY(0), the screen is already covered.
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          // Slide up and out of the screen
+          overlay.classList.add('is-exiting');
 
-        // Sync: false means leave completes before enter starts
-        sync: false,
+          // Once it has fully exited the top, silently reset it to the bottom
+          const handleTransitionEnd = (e) => {
+            if (e.propertyName !== 'transform') return;
+            overlay.removeEventListener('transitionend', handleTransitionEnd);
+            
+            // Instantly jump to bottom
+            overlay.style.transition = 'none';
+            overlay.classList.remove('is-exiting');
+            overlay.classList.add('is-hidden-bottom');
+            
+            // Force layout recalculation
+            overlay.offsetHeight; 
+            
+            // Re-arm transitions for the next click
+            overlay.style.transition = '';
+          };
+          
+          overlay.addEventListener('transitionend', handleTransitionEnd);
+        });
+      });
+    }
 
-        leave(data) {
-          const sheet = document.getElementById('transition-sheet');
-          const transName = document.getElementById('transition-name');
+    // 2. Intercept Clicks: Listen for clicks on all internal navigation links
+    document.addEventListener('click', (e) => {
+      const link = e.target.closest('a');
+      if (!link) return;
 
-          // Get destination page name
-          const nextNamespace = data.next.namespace || '';
-          const pageName = nextNamespace.charAt(0).toUpperCase() + nextNamespace.slice(1);
-          if (transName) transName.textContent = pageName;
+      const href = link.getAttribute('href');
+      if (!href) return;
 
-          // Stop Lenis during transition
-          SmoothScroll.stop();
+      // Skip external links, hashes, mailto, phone, target="_blank"
+      if (
+        href.startsWith('#') || 
+        href.startsWith('mailto:') || 
+        href.startsWith('tel:') || 
+        link.getAttribute('target') === '_blank' ||
+        href.includes('//')
+      ) {
+        return;
+      }
 
-          return new Promise(resolve => {
-            const tl = gsap.timeline({
-              onComplete: resolve
-            });
-
-            // Fade out current content
-            tl.to(data.current.container, {
-              opacity: 0,
-              y: -30,
-              duration: 0.4,
-              ease: 'power2.in'
-            });
-
-            // Slide sheet up
-            tl.to(sheet, {
-              y: 0,
-              duration: 0.8,
-              ease: 'power3.inOut'
-            }, '-=0.2');
-
-            // Show page name
-            tl.to(transName, {
-              opacity: 1,
-              duration: 0.3,
-              ease: 'power2.out'
-            }, '-=0.3');
-          });
-        },
-
-        enter(data) {
-          const sheet = document.getElementById('transition-sheet');
-          const transName = document.getElementById('transition-name');
-
-          return new Promise(resolve => {
-            // Scroll to top
-            window.scrollTo(0, 0);
-
-            const tl = gsap.timeline({
-              onComplete: () => {
-                // Reset sheet for next transition
-                gsap.set(sheet, { y: 'calc(100% + 60px)' });
-                gsap.set(transName, { opacity: 0 });
-
-                resolve();
-              }
-            });
-
-            // Set initial state for new content
-            gsap.set(data.next.container, { opacity: 0, y: 30 });
-
-            // Hide page name
-            tl.to(transName, {
-              opacity: 0,
-              duration: 0.2,
-              ease: 'power2.in'
-            });
-
-            // Slide sheet away
-            tl.to(sheet, {
-              y: '-100%',
-              duration: 0.8,
-              ease: 'power3.inOut'
-            }, '-=0.1');
-
-            // Fade in new content
-            tl.to(data.next.container, {
-              opacity: 1,
-              y: 0,
-              duration: 0.6,
-              ease: 'power3.out'
-            }, '-=0.4');
-          });
-        },
-
-        afterEnter(data) {
-          // Reinitialize all modules for new page
-          reinitialize();
+      // Check if it has a hash (in-page smooth scroll check)
+      // If we are navigating to the same page with a hash, let it go to the scroll logic.
+      const currentPath = window.location.pathname;
+      const currentNamespace = document.querySelector('main')?.getAttribute('data-barba-namespace') || '';
+      
+      // If it contains a cross-page hash (e.g. index.html#contact), but we are on that page already, do not transition
+      if (href.includes('#')) {
+        const parts = href.split('#');
+        const page = parts[0];
+        if ((page === 'index.html' || page === '/' || page === '') && currentNamespace === 'home') {
+          return;
         }
-      }]
+        if (page === 'about.html' && currentNamespace === 'about') {
+          return;
+        }
+      }
+
+      e.preventDefault();
+
+      if (overlay) {
+        const title = document.querySelector('.page-transition-title');
+        
+        // Determine clicked link's text
+        let text = '';
+        if (link.classList.contains('nav-logo') || link.querySelector('.logo-name')) {
+          text = 'Home';
+        } else {
+          text = link.textContent.trim();
+        }
+
+        // Clean up special characters from the text
+        text = text.replace(/→|↗|←|↑|↓/g, '').trim();
+
+        // Fallback names
+        if (!text) {
+          if (href.includes('index.html')) text = 'Home';
+          else if (href.includes('about.html')) text = 'About';
+          else if (href.includes('project.html')) text = 'Projects';
+          else text = 'Loading';
+        }
+
+        if (title) {
+          title.textContent = text;
+        }
+
+        // Ensure transitions are active
+        overlay.style.transition = '';
+        
+        // Remove the bottom waiting state and trigger the slide up to 0
+        overlay.classList.remove('is-hidden-bottom');
+        overlay.classList.add('is-active');
+
+        // Wait for the slide-in transition to finish, then navigate
+        setTimeout(() => {
+          window.location.href = href;
+        }, 600);
+      } else {
+        window.location.href = href;
+      }
     });
   }
 
-  function reinitialize() {
-    // Refresh ScrollTrigger
-    ScrollTrigger.refresh();
-
-    // Restart Lenis
-    SmoothScroll.destroy();
-    SmoothScroll.init();
-
-    // Rebind cursor
-    Cursor.rebind();
-
-    // Rebind magnetic
-    Magnetic.rebind();
-
-    // Refresh animations
-    Animations.refresh();
-
-    // Re-init Three.js if hero exists, or fully destroy it if not
-    if (document.getElementById('hero-canvas-container')) {
-      ThreeBg.destroy();
-      ThreeBg.init();
-    } else {
-      ThreeBg.destroy();
-    }
-  }
-
-  return { init, reinitialize };
+  return { init };
 })();

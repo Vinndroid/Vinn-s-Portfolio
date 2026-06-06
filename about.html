@@ -21,17 +21,18 @@
 </head>
 <body data-barba="wrapper">
 
+  <div class="page-transition-overlay">
+    <h1 class="page-transition-title">About</h1>
+  </div>
+
   <div class="noise-overlay"></div>
 
-  <div class="cursor" id="cursor">
+  <!-- Custom Cursor -->
+  <div class="custom-cursor" id="custom-cursor">
     <span class="cursor-text">VIEW</span>
   </div>
-  <div class="cursor-dot" id="cursor-dot"></div>
 
-  <div class="transition-sheet" id="transition-sheet">
-    <div class="rounded-top"><div class="rounded-top-inner"></div></div>
-  </div>
-  <div class="transition-name" id="transition-name"></div>
+
 
   <!-- Navigation -->
   <nav class="nav" id="nav" data-barba-prevent="all">
@@ -303,7 +304,6 @@
   <script src="https://cdn.jsdelivr.net/npm/lenis@1.3.23/dist/lenis.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/gsap.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/ScrollTrigger.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@barba/core@2.9.7/dist/barba.umd.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
 
   <script src="js/smooth-scroll.js"></script>
