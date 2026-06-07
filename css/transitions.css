@@ -1,7 +1,18 @@
 /* ============================================
    TRANSITIONS.CSS — Premium Page Transitions
+   ============================================
+   
+   DUAL-SYSTEM ARCHITECTURE:
+   1. Terminal Preloader (#terminal-loader) — z-index: 99999
+      Absolute top layer. Styles live in sections.css.
+   
+   2. Page Transition Curtain (.page-transition-overlay) — z-index: 9999
+      One layer below the terminal. DEFAULT state: covering the screen
+      (translateY(0)) so that on raw page load, NO content can flash.
+      JS slides it out on every page load.
    ============================================ */
 
+/* --- DEFAULT: Covering the screen (flicker-proof) --- */
 .page-transition-overlay {
   position: fixed;
   top: 0;
@@ -9,34 +20,33 @@
   width: 100vw;
   height: 100vh;
   height: 100dvh;
-  z-index: 99999;
+  z-index: 9999;
   background-color: #C7FF02;
   display: flex;
   align-items: center;
   justify-content: center;
   pointer-events: none;
   will-change: transform;
-  transform: translateY(0); /* Default: covered on page load */
+  transform: translateY(0); /* DEFAULT: covering screen to prevent content flash */
   transition: transform 0.6s cubic-bezier(0.7, 0, 0.3, 1);
 }
 
-.page-transition-overlay.is-active {
-  transform: translateY(0);
-}
-
+/* --- EXITING: Slides UP and OUT to the top (revealing new page) --- */
 .page-transition-overlay.is-exiting {
   transform: translateY(-100%);
 }
 
-.page-transition-overlay.is-preparing {
-  transform: translateY(100%);
-  transition: none; /* Instant shift to bottom before sliding up */
+/* --- ENTERING: Slides UP from bottom to cover the screen --- */
+.page-transition-overlay.is-entering {
+  transform: translateY(0);
 }
 
-.page-transition-overlay.is-hidden-bottom {
+/* --- ARMED: Hidden below viewport, ready for next nav click --- */
+.page-transition-overlay.is-armed {
   transform: translateY(100%);
 }
 
+/* --- Page Title Text --- */
 .page-transition-title {
   font-family: var(--font-display), sans-serif;
   font-weight: 800;

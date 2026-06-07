@@ -10,7 +10,7 @@
 .terminal-loader {
   position: fixed;
   inset: 0;
-  z-index: var(--z-loading);
+  z-index: 99999; /* Absolute top layer — always above .page-transition-overlay (9999) */
   background: #050505;
   display: flex;
   align-items: center;

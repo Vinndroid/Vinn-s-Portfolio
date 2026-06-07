@@ -276,16 +276,25 @@ window.addEventListener('load', function() {
      INIT ALL
      ======================== */
   async function initAll() {
-    // Run loading screen first
-    await runLoadingScreen();
+    // SYSTEM 2: Initialize page transition curtain FIRST on all pages.
+    // If we arrived via a nav click, this will play the curtain exit animation.
+    // If this is a fresh/direct load, the curtain stays invisible (translateY(100%)).
+    Transitions.init();
 
-    // Initialize all modules
+    // SYSTEM 1: Terminal preloader — only runs on index.html, first visit only.
+    // The terminal preloader has its own sessionStorage guard ('portfolio-loaded'),
+    // so it won't re-run on subsequent visits within the same session.
+    const isIndexPage = document.getElementById('terminal-loader') !== null;
+    if (isIndexPage) {
+      await runLoadingScreen();
+    }
+
+    // Initialize all other modules after both systems have resolved
     SmoothScroll.init();
     Cursor.init();
     Magnetic.init();
     ThreeBg.init();
     Animations.init();
-    Transitions.init();
 
     // Page-specific
     initMobileMenu();
