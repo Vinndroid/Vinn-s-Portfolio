@@ -3,7 +3,6 @@
    ============================================ */
 
 const Animations = (() => {
-  let marqueeTickFn = null;
 
   function init() {
     gsap.registerPlugin(ScrollTrigger);
@@ -15,7 +14,7 @@ const Animations = (() => {
     });
 
     initHeroAnimations();
-    initHeroMarquee();
+    initScrollTextStack();
     initRevealAnimations();
     initParallax();
     initNavScroll();
@@ -76,89 +75,48 @@ const Animations = (() => {
       }, '-=0.6');
     }
 
-    // Hero parallax on scroll
-    gsap.to('.hero-content', {
-      y: -80,
-      opacity: 0.3,
-      scrollTrigger: {
-        trigger: '.hero',
-        start: 'top top',
-        end: 'bottom top',
-        scrub: 1.5
-      }
-    });
+
 
 
     return tl;
   }
 
   /* ========================
-     HERO NAME MARQUEE (GSAP)
+     DEVOPS SCROLL TEXT STACK
      ======================== */
-  function initHeroMarquee() {
-    const container = document.querySelector('.marquee-container');
-    const parts = document.querySelectorAll('.marquee-part');
-    if (!container || parts.length < 2) return;
+  function initScrollTextStack() {
+    const track = document.getElementById('vinn-scroll-pin-track');
+    const stickyContent = document.getElementById('vinn-scroll-sticky-content');
+    if (!track || !stickyContent) return;
 
-    const BASE_SPEED = 0.03;
-    const MAX_SPEED  = 0.075; // 2.5x base — the absolute ceiling
+    const words = Array.from(track.querySelectorAll('.scroll-word'));
+    const totalWords = words.length;
 
-    // gsap.utils.clamp enforces the hard speed limit
-    const clampSpeed = gsap.utils.clamp(BASE_SPEED, MAX_SPEED);
+    function handleScroll() {
+        const rect = track.getBoundingClientRect();
+        const progress = Math.min(Math.max(-rect.top / (rect.height - window.innerHeight), 0), 1);
 
-    // Maps raw velocity (0–3000px/s) into the speed range, then clamps it
-    const mapVelocity = gsap.utils.mapRange(0, 3000, BASE_SPEED, MAX_SPEED);
+        let wordIndex = Math.floor(progress * totalWords);
+        wordIndex = Math.max(0, Math.min(wordIndex, totalWords - 1));
 
-    let xPercent = 0;
-    let direction = -1; // -1 moves left, 1 moves right
-    let currentSpeed = BASE_SPEED;
-    let speedObj = { val: BASE_SPEED };
-
-    // Remove any existing ticker to avoid duplicates
-    if (marqueeTickFn) {
-      gsap.ticker.remove(marqueeTickFn);
-    }
-
-    marqueeTickFn = () => {
-      // Wrap seamlessly
-      if (xPercent <= -100) {
-        xPercent = 0;
-      } else if (xPercent > 0) {
-        xPercent = -100;
-      }
-      gsap.set(parts, { xPercent: xPercent });
-      xPercent += currentSpeed * direction;
-    };
-
-    gsap.ticker.add(marqueeTickFn);
-
-    ScrollTrigger.create({
-      trigger: document.documentElement,
-      start: "top top",
-      end: "bottom bottom",
-      onUpdate: (self) => {
-        // Direction switch
-        direction = self.direction === 1 ? -1 : 1;
-
-        // Raw velocity → mapped → clamped (never exceeds MAX_SPEED)
-        const rawVelocity = Math.abs(self.getVelocity());
-        const targetSpeed = clampSpeed(mapVelocity(rawVelocity));
-
-        // Kill any in-flight tween so values don't stack
-        gsap.killTweensOf(speedObj);
-        speedObj.val = targetSpeed;
-
-        // Smoothly decay back to base speed
-        gsap.to(speedObj, {
-          val: BASE_SPEED,
-          duration: 1.2,
-          ease: "power2.out",
-          onUpdate: () => {
-            currentSpeed = speedObj.val;
-          }
+        words.forEach((word, index) => {
+            // Clear previous states
+            word.classList.remove('vinn-active', 'vinn-exit');
+            
+            if (index === wordIndex) {
+                // Current word gets centered
+                word.classList.add('vinn-active');
+            } else if (index < wordIndex) {
+                // Past words get pushed up and faded out
+                word.classList.add('vinn-exit');
+            }
+            // Future words automatically stay in default incoming state (below)
         });
-      }
-    });
+    }
+    //listen to scroll on window
+    window.addEventListener('scroll', handleScroll);
+    // Initial call in case page loads mid-way
+    handleScroll();
   }
 
   /* ========================
@@ -355,32 +313,22 @@ const Animations = (() => {
   }
 
   /* ========================
-     NAV HIDE/SHOW ON SCROLL
+     NAV FROSTED GLASS ON SCROLL
      ======================== */
   function initNavScroll() {
     const nav = document.getElementById('nav');
     if (!nav) return;
-
-    let lastScroll = 0;
 
     ScrollTrigger.create({
       start: 'top -80',
       onUpdate: (self) => {
         const scrollY = self.scroll();
 
-        if (scrollY > 100) {
+        if (scrollY > 80) {
           nav.classList.add('is-scrolled');
         } else {
           nav.classList.remove('is-scrolled');
         }
-
-        if (scrollY > lastScroll && scrollY > 200) {
-          nav.classList.add('is-hidden');
-        } else {
-          nav.classList.remove('is-hidden');
-        }
-
-        lastScroll = scrollY;
       }
     });
   }

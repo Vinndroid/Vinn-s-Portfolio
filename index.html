@@ -26,6 +26,7 @@
   <link rel="stylesheet" href="css/transitions.css">
 </head>
 <body data-barba="wrapper">
+  <canvas id="vinn-particle-canvas"></canvas>
 
   <!-- Page Transition Curtain (nav clicks only — hidden by default via CSS) -->
   <div class="page-transition-overlay">
@@ -35,10 +36,7 @@
   <!-- Noise Overlay -->
   <div class="noise-overlay"></div>
 
-  <!-- Custom Cursor -->
-  <div class="custom-cursor" id="custom-cursor">
-    <span class="cursor-text">VIEW</span>
-  </div>
+
 
   <!-- Terminal Loader -->
   <div class="terminal-loader" id="terminal-loader">
@@ -71,16 +69,33 @@
         <span class="logo-name">VINN<span class="accent">.</span></span>
         <span class="logo-tagline">Design by vinnbabu</span>
       </a>
-      <div class="nav-links">
-        <a href="project.html" class="nav-link magnetic" data-magnetic>Projects</a>
-        <a href="about.html" class="nav-link magnetic" data-magnetic>About</a>
-        <a href="#contact" class="nav-link magnetic" data-magnetic>Contact</a>
+      <div class="nav-right-group">
+        <div class="nav-links">
+          <a href="project.html" class="nav-link magnetic" data-magnetic>Projects</a>
+          <a href="about.html" class="nav-link magnetic" data-magnetic>About</a>
+          <a href="#contact" class="nav-link magnetic" data-magnetic>Contact</a>
+        </div>
+        <div class="dribbble-toggle-wrapper">
+          <input type="checkbox" id="vinn-theme-checkbox" class="theme-checkbox">
+          <label for="vinn-theme-checkbox" class="theme-toggle-label">
+            <div class="toggle-track">
+              <div class="toggle-switch-circle">
+                <span class="sun-ray-icon">☀️</span>
+                <span class="moon-crater-icon">🌙</span>
+              </div>
+              <div class="star-decorations">
+                <span class="star-dot s1"></span>
+                <span class="star-dot s2"></span>
+              </div>
+            </div>
+          </label>
+        </div>
+        <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
       </div>
-      <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu">
-        <span></span>
-        <span></span>
-        <span></span>
-      </button>
     </div>
   </nav>
 
@@ -92,12 +107,7 @@
     <a href="#contact" class="mobile-link">Contact</a>
   </div>
 
-  <!-- Floating Circular Menu Button -->
-  <button class="floating-menu magnetic" id="floating-menu" aria-label="Toggle menu" data-magnetic>
-    <span></span>
-    <span></span>
-    <span></span>
-  </button>
+
 
   <!-- Main Content -->
   <main data-barba="container" data-barba-namespace="home">
@@ -106,49 +116,20 @@
     <!-- HERO SECTION -->
     <!-- ========================= -->
     <section class="hero section" id="hero">
-      <div class="hero-bg" id="hero-canvas-container"></div>
-
-      <div class="hero-content">
-        <div class="hero-subtitle reveal-up" data-animate>
-          DevOps & Automation Engineer — Based in India
-        </div>
-
-        <h1 class="hero-title">
-          <span class="line">
-            <span class="word"><span class="word-inner">AUTOMATING</span></span>
-          </span>
-          <span class="line">
-            <span class="word"><span class="word-inner accent-word">SCALABLE</span></span>
-          </span>
-          <span class="line">
-            <span class="word"><span class="word-inner accent-word">INFRASTRUCTURE.</span></span>
-          </span>
-        </h1>
-
-        <div class="hero-bottom">
-          <p class="hero-description reveal-up" data-animate data-delay="0.4">
-            Focused on optimizing system reliability, building seamless automation pipelines, and managing robust Linux environments.
-          </p>
-          <div class="hero-status-wrapper reveal-up" data-animate data-delay="0.45">
-            <a href="#contact" class="status-badge magnetic" data-magnetic>
-              <span class="pulse-dot"></span>
-              <span class="status-text">Available for Opportunities →</span>
-            </a>
+      <div id="vinn-scroll-pin-track">
+        <div id="vinn-scroll-sticky-content">
+          <div class="hero-bg" id="hero-canvas-container"></div>
+          <p class="scroll-subheading">Expertise in</p>
+          <div class="scroll-text-stack">
+            <div class="scroll-word vinn-active">AUTOMATING WORKFLOWS</div>
+            <div class="scroll-word">SCALING INFRASTRUCTURE</div>
+            <div class="scroll-word">SCRIPTING SYSTEMS</div>
+            <div class="scroll-word">DEPLOYING CLOUD APPS</div>
           </div>
         </div>
       </div>
 
-      <!-- Name Marquee -->
-      <div class="name-marquee reveal-up" data-animate data-delay="0.5">
-        <div class="marquee-container">
-          <div class="marquee-part">
-            MEDIDI VINNBABU — MEDIDI VINNBABU — MEDIDI VINNBABU — MEDIDI VINNBABU — 
-          </div>
-          <div class="marquee-part" aria-hidden="true">
-            MEDIDI VINNBABU — MEDIDI VINNBABU — MEDIDI VINNBABU — MEDIDI VINNBABU — 
-          </div>
-        </div>
-      </div>
+
     </section>
 
     <!-- ========================= -->
@@ -402,7 +383,7 @@
     <!-- ========================= -->
     <div class="snellenberg-curve-wrapper">
       <svg viewBox="0 0 1440 100" preserveAspectRatio="none" class="curve-svg">
-        <path id="fluid-curve-path" d="M0 100 Q 720 0 1440 100 Z" fill="#1c1d20" />
+        <path id="fluid-curve-path" d="M0 100 Q 720 0 1440 100 Z" fill="#F0F0F0" />
       </svg>
     </div>
     <footer class="footer" id="footer">
@@ -438,7 +419,7 @@
 
   <!-- Application Scripts -->
   <script src="js/smooth-scroll.js"></script>
-  <script src="js/cursor.js"></script>
+
   <script src="js/magnetic.js"></script>
   <script src="js/three-bg.js"></script>
   <script src="js/animations.js"></script>

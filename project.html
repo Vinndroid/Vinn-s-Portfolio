@@ -44,7 +44,15 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-      filter: brightness(0.3);
+      filter: brightness(0.6);
+    }
+
+    .project-hero-image::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(255, 255, 255, 0.45);
+      pointer-events: none;
     }
 
     .project-hero-content {
@@ -150,10 +158,7 @@
 
   <div class="noise-overlay"></div>
 
-  <!-- Custom Cursor -->
-  <div class="custom-cursor" id="custom-cursor">
-    <span class="cursor-text">VIEW</span>
-  </div>
+
 
 
 
@@ -164,14 +169,31 @@
         <span class="logo-name">VINN<span class="accent">.</span></span>
         <span class="logo-tagline">Design by vinnbabu</span>
       </a>
-      <div class="nav-links">
-        <a href="project.html" class="nav-link active magnetic" data-magnetic>Projects</a>
-        <a href="about.html" class="nav-link magnetic" data-magnetic>About</a>
-        <a href="index.html#contact" class="nav-link magnetic" data-magnetic>Contact</a>
+      <div class="nav-right-group">
+        <div class="nav-links">
+          <a href="project.html" class="nav-link active magnetic" data-magnetic>Projects</a>
+          <a href="about.html" class="nav-link magnetic" data-magnetic>About</a>
+          <a href="index.html#contact" class="nav-link magnetic" data-magnetic>Contact</a>
+        </div>
+        <div class="dribbble-toggle-wrapper">
+          <input type="checkbox" id="vinn-theme-checkbox" class="theme-checkbox">
+          <label for="vinn-theme-checkbox" class="theme-toggle-label">
+            <div class="toggle-track">
+              <div class="toggle-switch-circle">
+                <span class="sun-ray-icon">☀️</span>
+                <span class="moon-crater-icon">🌙</span>
+              </div>
+              <div class="star-decorations">
+                <span class="star-dot s1"></span>
+                <span class="star-dot s2"></span>
+              </div>
+            </div>
+          </label>
+        </div>
+        <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu">
+          <span></span><span></span><span></span>
+        </button>
       </div>
-      <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu">
-        <span></span><span></span><span></span>
-      </button>
     </div>
   </nav>
 
@@ -182,12 +204,7 @@
     <a href="index.html#contact" class="mobile-link">Contact</a>
   </div>
 
-  <!-- Floating Circular Menu Button -->
-  <button class="floating-menu magnetic" id="floating-menu" aria-label="Toggle menu" data-magnetic>
-    <span></span>
-    <span></span>
-    <span></span>
-  </button>
+
 
   <main data-barba="container" data-barba-namespace="project">
 
@@ -293,7 +310,7 @@
     <!-- Footer -->
     <div class="snellenberg-curve-wrapper">
       <svg viewBox="0 0 1440 100" preserveAspectRatio="none" class="curve-svg">
-        <path id="fluid-curve-path" d="M0 100 Q 720 0 1440 100 Z" fill="#1c1d20" />
+        <path id="fluid-curve-path" d="M0 100 Q 720 0 1440 100 Z" fill="#F0F0F0" />
       </svg>
     </div>
     <footer class="footer" id="footer">
@@ -324,7 +341,7 @@
   <script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
 
   <script src="js/smooth-scroll.js"></script>
-  <script src="js/cursor.js"></script>
+
   <script src="js/magnetic.js"></script>
   <script src="js/three-bg.js"></script>
   <script src="js/animations.js"></script>

@@ -27,10 +27,7 @@
 
   <div class="noise-overlay"></div>
 
-  <!-- Custom Cursor -->
-  <div class="custom-cursor" id="custom-cursor">
-    <span class="cursor-text">VIEW</span>
-  </div>
+
 
 
 
@@ -41,14 +38,31 @@
         <span class="logo-name">VINN<span class="accent">.</span></span>
         <span class="logo-tagline">Design by vinnbabu</span>
       </a>
-      <div class="nav-links">
-        <a href="project.html" class="nav-link magnetic" data-magnetic>Projects</a>
-        <a href="about.html" class="nav-link active magnetic" data-magnetic>About</a>
-        <a href="index.html#contact" class="nav-link magnetic" data-magnetic>Contact</a>
+      <div class="nav-right-group">
+        <div class="nav-links">
+          <a href="project.html" class="nav-link magnetic" data-magnetic>Projects</a>
+          <a href="about.html" class="nav-link active magnetic" data-magnetic>About</a>
+          <a href="index.html#contact" class="nav-link magnetic" data-magnetic>Contact</a>
+        </div>
+        <div class="dribbble-toggle-wrapper">
+          <input type="checkbox" id="vinn-theme-checkbox" class="theme-checkbox">
+          <label for="vinn-theme-checkbox" class="theme-toggle-label">
+            <div class="toggle-track">
+              <div class="toggle-switch-circle">
+                <span class="sun-ray-icon">☀️</span>
+                <span class="moon-crater-icon">🌙</span>
+              </div>
+              <div class="star-decorations">
+                <span class="star-dot s1"></span>
+                <span class="star-dot s2"></span>
+              </div>
+            </div>
+          </label>
+        </div>
+        <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu">
+          <span></span><span></span><span></span>
+        </button>
       </div>
-      <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu">
-        <span></span><span></span><span></span>
-      </button>
     </div>
   </nav>
 
@@ -59,12 +73,7 @@
     <a href="index.html#contact" class="mobile-link">Contact</a>
   </div>
 
-  <!-- Floating Circular Menu Button -->
-  <button class="floating-menu magnetic" id="floating-menu" aria-label="Toggle menu" data-magnetic>
-    <span></span>
-    <span></span>
-    <span></span>
-  </button>
+
 
   <main data-barba="container" data-barba-namespace="about">
 
@@ -122,17 +131,17 @@
               <span class="tech-num">02 / SKILLSET</span>
               <h3 class="tech-title">Core Technologies</h3>
               <div class="tech-tags-grid" style="margin-top: 1.5rem; display: flex; flex-wrap: wrap; gap: 0.75rem;">
-                <span class="tech-tag" style="padding: 0.5rem 1rem; border: 1px solid var(--border-color); border-radius: var(--radius-full); font-family: var(--font-body); font-size: 0.9rem; color: var(--text-primary); background: rgba(255,255,255,0.02); transition: all 0.3s ease; will-change: transform;">Linux</span>
-                <span class="tech-tag" style="padding: 0.5rem 1rem; border: 1px solid var(--border-color); border-radius: var(--radius-full); font-family: var(--font-body); font-size: 0.9rem; color: var(--text-primary); background: rgba(255,255,255,0.02); transition: all 0.3s ease; will-change: transform;">Git & GitHub</span>
-                <span class="tech-tag" style="padding: 0.5rem 1rem; border: 1px solid var(--border-color); border-radius: var(--radius-full); font-family: var(--font-body); font-size: 0.9rem; color: var(--text-primary); background: rgba(255,255,255,0.02); transition: all 0.3s ease; will-change: transform;">Docker</span>
-                <span class="tech-tag" style="padding: 0.5rem 1rem; border: 1px solid var(--border-color); border-radius: var(--radius-full); font-family: var(--font-body); font-size: 0.9rem; color: var(--text-primary); background: rgba(255,255,255,0.02); transition: all 0.3s ease; will-change: transform;">Kubernetes</span>
-                <span class="tech-tag" style="padding: 0.5rem 1rem; border: 1px solid var(--border-color); border-radius: var(--radius-full); font-family: var(--font-body); font-size: 0.9rem; color: var(--text-primary); background: rgba(255,255,255,0.02); transition: all 0.3s ease; will-change: transform;">AWS</span>
-                <span class="tech-tag" style="padding: 0.5rem 1rem; border: 1px solid var(--border-color); border-radius: var(--radius-full); font-family: var(--font-body); font-size: 0.9rem; color: var(--text-primary); background: rgba(255,255,255,0.02); transition: all 0.3s ease; will-change: transform;">Terraform</span>
-                <span class="tech-tag" style="padding: 0.5rem 1rem; border: 1px solid var(--border-color); border-radius: var(--radius-full); font-family: var(--font-body); font-size: 0.9rem; color: var(--text-primary); background: rgba(255,255,255,0.02); transition: all 0.3s ease; will-change: transform;">Jenkins</span>
-                <span class="tech-tag" style="padding: 0.5rem 1rem; border: 1px solid var(--border-color); border-radius: var(--radius-full); font-family: var(--font-body); font-size: 0.9rem; color: var(--text-primary); background: rgba(255,255,255,0.02); transition: all 0.3s ease; will-change: transform;">Python</span>
-                <span class="tech-tag" style="padding: 0.5rem 1rem; border: 1px solid var(--border-color); border-radius: var(--radius-full); font-family: var(--font-body); font-size: 0.9rem; color: var(--text-primary); background: rgba(255,255,255,0.02); transition: all 0.3s ease; will-change: transform;">Bash Scripting</span>
-                <span class="tech-tag" style="padding: 0.5rem 1rem; border: 1px solid var(--border-color); border-radius: var(--radius-full); font-family: var(--font-body); font-size: 0.9rem; color: var(--text-primary); background: rgba(255,255,255,0.02); transition: all 0.3s ease; will-change: transform;">Prometheus</span>
-                <span class="tech-tag" style="padding: 0.5rem 1rem; border: 1px solid var(--border-color); border-radius: var(--radius-full); font-family: var(--font-body); font-size: 0.9rem; color: var(--text-primary); background: rgba(255,255,255,0.02); transition: all 0.3s ease; will-change: transform;">Grafana</span>
+                <span class="tech-tag" style="padding: 0.5rem 1rem; border: 1px solid var(--border-color); border-radius: var(--radius-full); font-family: var(--font-body); font-size: 0.9rem; color: var(--text-primary); background: rgba(0,0,0,0.03); transition: all 0.3s ease; will-change: transform;">Linux</span>
+                <span class="tech-tag" style="padding: 0.5rem 1rem; border: 1px solid var(--border-color); border-radius: var(--radius-full); font-family: var(--font-body); font-size: 0.9rem; color: var(--text-primary); background: rgba(0,0,0,0.03); transition: all 0.3s ease; will-change: transform;">Git & GitHub</span>
+                <span class="tech-tag" style="padding: 0.5rem 1rem; border: 1px solid var(--border-color); border-radius: var(--radius-full); font-family: var(--font-body); font-size: 0.9rem; color: var(--text-primary); background: rgba(0,0,0,0.03); transition: all 0.3s ease; will-change: transform;">Docker</span>
+                <span class="tech-tag" style="padding: 0.5rem 1rem; border: 1px solid var(--border-color); border-radius: var(--radius-full); font-family: var(--font-body); font-size: 0.9rem; color: var(--text-primary); background: rgba(0,0,0,0.03); transition: all 0.3s ease; will-change: transform;">Kubernetes</span>
+                <span class="tech-tag" style="padding: 0.5rem 1rem; border: 1px solid var(--border-color); border-radius: var(--radius-full); font-family: var(--font-body); font-size: 0.9rem; color: var(--text-primary); background: rgba(0,0,0,0.03); transition: all 0.3s ease; will-change: transform;">AWS</span>
+                <span class="tech-tag" style="padding: 0.5rem 1rem; border: 1px solid var(--border-color); border-radius: var(--radius-full); font-family: var(--font-body); font-size: 0.9rem; color: var(--text-primary); background: rgba(0,0,0,0.03); transition: all 0.3s ease; will-change: transform;">Terraform</span>
+                <span class="tech-tag" style="padding: 0.5rem 1rem; border: 1px solid var(--border-color); border-radius: var(--radius-full); font-family: var(--font-body); font-size: 0.9rem; color: var(--text-primary); background: rgba(0,0,0,0.03); transition: all 0.3s ease; will-change: transform;">Jenkins</span>
+                <span class="tech-tag" style="padding: 0.5rem 1rem; border: 1px solid var(--border-color); border-radius: var(--radius-full); font-family: var(--font-body); font-size: 0.9rem; color: var(--text-primary); background: rgba(0,0,0,0.03); transition: all 0.3s ease; will-change: transform;">Python</span>
+                <span class="tech-tag" style="padding: 0.5rem 1rem; border: 1px solid var(--border-color); border-radius: var(--radius-full); font-family: var(--font-body); font-size: 0.9rem; color: var(--text-primary); background: rgba(0,0,0,0.03); transition: all 0.3s ease; will-change: transform;">Bash Scripting</span>
+                <span class="tech-tag" style="padding: 0.5rem 1rem; border: 1px solid var(--border-color); border-radius: var(--radius-full); font-family: var(--font-body); font-size: 0.9rem; color: var(--text-primary); background: rgba(0,0,0,0.03); transition: all 0.3s ease; will-change: transform;">Prometheus</span>
+                <span class="tech-tag" style="padding: 0.5rem 1rem; border: 1px solid var(--border-color); border-radius: var(--radius-full); font-family: var(--font-body); font-size: 0.9rem; color: var(--text-primary); background: rgba(0,0,0,0.03); transition: all 0.3s ease; will-change: transform;">Grafana</span>
               </div>
             </div>
             
@@ -276,7 +285,7 @@
     <!-- Footer -->
     <div class="snellenberg-curve-wrapper">
       <svg viewBox="0 0 1440 100" preserveAspectRatio="none" class="curve-svg">
-        <path id="fluid-curve-path" d="M0 100 Q 720 0 1440 100 Z" fill="#1c1d20" />
+        <path id="fluid-curve-path" d="M0 100 Q 720 0 1440 100 Z" fill="#F0F0F0" />
       </svg>
     </div>
     <footer class="footer" id="footer">
@@ -307,7 +316,7 @@
   <script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
 
   <script src="js/smooth-scroll.js"></script>
-  <script src="js/cursor.js"></script>
+
   <script src="js/magnetic.js"></script>
   <script src="js/three-bg.js"></script>
   <script src="js/animations.js"></script>

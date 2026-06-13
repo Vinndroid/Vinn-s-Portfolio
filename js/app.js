@@ -1,3 +1,10 @@
+(function() {
+  const savedTheme = localStorage.getItem('vinn-theme');
+  if (savedTheme === 'dark') {
+    document.documentElement.setAttribute('data-theme', 'dark');
+  }
+})();
+
 if ('history' in window) {
     window.history.scrollRestoration = 'manual';
 }
@@ -126,7 +133,6 @@ window.addEventListener('load', function() {
      ======================== */
   function initMobileMenu() {
     const toggle = document.getElementById('nav-toggle');
-    const floatingToggle = document.getElementById('floating-menu');
     const menu = document.getElementById('mobile-menu');
 
     if (!menu) return;
@@ -135,7 +141,6 @@ window.addEventListener('load', function() {
       const isOpen = menu.classList.toggle('is-open');
       
       if (toggle) toggle.classList.toggle('is-active', isOpen);
-      if (floatingToggle) floatingToggle.classList.toggle('is-active', isOpen);
 
       if (isOpen) {
         SmoothScroll.stop();
@@ -148,10 +153,6 @@ window.addEventListener('load', function() {
 
     if (toggle) {
       toggle.addEventListener('click', toggleMenu);
-    }
-
-    if (floatingToggle) {
-      floatingToggle.addEventListener('click', toggleMenu);
     }
 
     // Close menu on link click & handle cross-page dynamic routing
@@ -196,33 +197,10 @@ window.addEventListener('load', function() {
         }
 
         if (toggle) toggle.classList.remove('is-active');
-        if (floatingToggle) floatingToggle.classList.remove('is-active');
         menu.classList.remove('is-open');
         SmoothScroll.start();
         document.body.classList.remove('no-scroll');
       });
-    });
-  }
-
-  /* ========================
-     FLOATING MENU SCROLL REVEAL
-     ======================== */
-  function initFloatingMenuScroll() {
-    const floatingMenu = document.getElementById('floating-menu');
-    const mainNav = document.querySelector('.nav');
-    if (!floatingMenu) return;
-
-    ScrollTrigger.create({
-      start: 150,
-      onUpdate: (self) => {
-        if (self.scroll() > 150) {
-          floatingMenu.classList.add('active');
-          if (mainNav) mainNav.classList.add('nav-hidden');
-        } else {
-          floatingMenu.classList.remove('active');
-          if (mainNav) mainNav.classList.remove('nav-hidden');
-        }
-      }
     });
   }
 
@@ -273,6 +251,202 @@ window.addEventListener('load', function() {
   }
 
   /* ========================
+     VINN PARTICLE ENGINE (ANTIGRAVITY MOUSE-REACTIVE)
+     ======================== */
+  const VinnParticleBg = (() => {
+    let canvas = null;
+    let ctx = null;
+    let particles = [];
+    let mouse = { x: -1000, y: -1000 };
+    let animationFrameId = null;
+    const numParticles = 140;
+
+    // Shades of subtle dark gray, blue, and neon accents
+    const lightColors = [
+      'rgba(17, 17, 17, 0.35)', // Muted dark charcoal
+      'rgba(0, 102, 255, 0.35)', // Antigravity blue
+      'rgba(0, 180, 216, 0.35)', // Light neon blue
+      'rgba(199, 255, 2, 0.4)',   // Signature neon green accent
+      'rgba(114, 9, 183, 0.35)'   // Tech purple accent
+    ];
+
+    // Shimmering white/neon shades for dark mode
+    const darkColors = [
+      'rgba(245, 245, 245, 0.35)', // Muted light gray/white
+      'rgba(0, 150, 255, 0.45)',   // Shimmering neon blue
+      'rgba(199, 255, 2, 0.5)',     // Signature neon green accent
+      'rgba(236, 72, 153, 0.35)',   // Neon pink
+      'rgba(168, 85, 247, 0.35)'    // Electric purple
+    ];
+
+    class Particle {
+      constructor(w, h, activeColors) {
+        this.baseX = Math.random() * w;
+        this.baseY = Math.random() * h;
+        this.x = this.baseX;
+        this.y = this.baseY;
+        
+        // Very slow baseline drift velocity
+        this.vx = (Math.random() - 0.5) * 0.15;
+        this.vy = (Math.random() - 0.5) * 0.15;
+        
+        this.radius = Math.random() * 1.5 + 1; // 1px to 2.5px radius
+        this.color = activeColors[Math.floor(Math.random() * activeColors.length)];
+      }
+
+      update(w, h) {
+        // Drift base position slowly
+        this.baseX += this.vx;
+        this.baseY += this.vy;
+
+        // Wrap edges safely
+        if (this.baseX < 0) this.baseX = w;
+        if (this.baseX > w) this.baseX = 0;
+        if (this.baseY < 0) this.baseY = h;
+        if (this.baseY > h) this.baseY = 0;
+
+        const dx = this.x - mouse.x;
+        const dy = this.y - mouse.y;
+        const distance = Math.sqrt(dx * dx + dy * dy);
+        const forceRadius = 120;
+
+        let targetX = this.baseX;
+        let targetY = this.baseY;
+
+        if (distance < forceRadius) {
+          // Push away force vector
+          const force = (forceRadius - distance) / forceRadius;
+          const angle = Math.atan2(dy, dx);
+          
+          // Repulse from cursor dynamically
+          targetX = this.baseX + Math.cos(angle) * force * 70;
+          targetY = this.baseY + Math.sin(angle) * force * 70;
+        }
+
+        // Lerp return home
+        this.x += (targetX - this.x) * 0.08;
+        this.y += (targetY - this.y) * 0.08;
+      }
+
+      draw() {
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+        ctx.fillStyle = this.color;
+        ctx.fill();
+      }
+    }
+
+    function resize() {
+      if (!canvas) return;
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      
+      particles.forEach(p => {
+        if (p.baseX > canvas.width) p.baseX = Math.random() * canvas.width;
+        if (p.baseY > canvas.height) p.baseY = Math.random() * canvas.height;
+      });
+    }
+
+    function onMouseMove(e) {
+      mouse.x = e.clientX;
+      mouse.y = e.clientY;
+    }
+
+    function onMouseLeave() {
+      mouse.x = -1000;
+      mouse.y = -1000;
+    }
+
+    function loop() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      
+      particles.forEach(p => {
+        p.update(canvas.width, canvas.height);
+        p.draw();
+      });
+
+      animationFrameId = requestAnimationFrame(loop);
+    }
+
+    function updateColors(isDark) {
+      const activeColors = isDark ? darkColors : lightColors;
+      particles.forEach(p => {
+        p.color = activeColors[Math.floor(Math.random() * activeColors.length)];
+      });
+    }
+
+    function init() {
+      canvas = document.getElementById('vinn-particle-canvas');
+      if (!canvas) return;
+
+      ctx = canvas.getContext('2d');
+      particles = [];
+
+      resize();
+
+      const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+      const activeColors = isDark ? darkColors : lightColors;
+
+      for (let i = 0; i < numParticles; i++) {
+        particles.push(new Particle(canvas.width, canvas.height, activeColors));
+      }
+
+      window.addEventListener('resize', resize);
+      window.addEventListener('mousemove', onMouseMove);
+      document.addEventListener('mouseleave', onMouseLeave);
+
+      loop();
+    }
+
+    function destroy() {
+      if (animationFrameId) {
+        cancelAnimationFrame(animationFrameId);
+        animationFrameId = null;
+      }
+      window.removeEventListener('resize', resize);
+      window.removeEventListener('mousemove', onMouseMove);
+      document.removeEventListener('mouseleave', onMouseLeave);
+    }
+
+    return { init, destroy, updateColors };
+  })();
+
+  /* ========================
+     THEME MANAGER (DARK/LIGHT TOGGLE SWITCH)
+     ======================== */
+  function initTheme() {
+    const checkbox = document.getElementById('vinn-theme-checkbox');
+    if (!checkbox || checkbox.dataset.themeInit === 'true') return;
+
+    checkbox.dataset.themeInit = 'true';
+
+    // Load initial theme state from localStorage
+    const savedTheme = localStorage.getItem('vinn-theme') || 'light';
+    const isDark = savedTheme === 'dark';
+    checkbox.checked = isDark;
+    
+    if (isDark) {
+      document.documentElement.setAttribute('data-theme', 'dark');
+    } else {
+      document.documentElement.removeAttribute('data-theme');
+    }
+
+    checkbox.addEventListener('change', () => {
+      const activeDark = checkbox.checked;
+      if (activeDark) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        localStorage.setItem('vinn-theme', 'dark');
+      } else {
+        document.documentElement.removeAttribute('data-theme');
+        localStorage.setItem('vinn-theme', 'light');
+      }
+
+      // Sync canvas colors dynamically
+      VinnParticleBg.updateColors(activeDark);
+    });
+  }
+
+  /* ========================
      INIT ALL
      ======================== */
   async function initAll() {
@@ -291,14 +465,14 @@ window.addEventListener('load', function() {
 
     // Initialize all other modules after both systems have resolved
     SmoothScroll.init();
-    Cursor.init();
     Magnetic.init();
     ThreeBg.init();
     Animations.init();
+    VinnParticleBg.init();
+    initTheme();
 
     // Page-specific
     initMobileMenu();
-    initFloatingMenuScroll();
     initBackToTop();
     initForm();
   }

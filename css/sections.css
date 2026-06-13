@@ -143,7 +143,7 @@
   flex-direction: column;
   justify-content: center;
   position: relative;
-  overflow: hidden;
+  overflow: visible; /* Prevent breaking position: sticky */
   padding-top: 6rem;
   padding-bottom: 1.5rem;
 }
@@ -228,12 +228,69 @@
   padding-bottom: 2rem;
 }
 
-.hero-description {
-  max-width: 420px;
-  font-family: var(--font-body);
+#vinn-scroll-pin-track {
+    height: 400vh; /* creates 4 viewports worth of scrollable space */
+    position: relative;
+    width: 100%;
+}
+#vinn-scroll-sticky-content {
+    position: sticky; /* THIS IS THE PIN */
+    top: 0;
+    height: 100vh; /* Locks to one full screen */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    text-align: center;
+}
+.scroll-subheading {
   font-size: 1rem;
-  line-height: 1.7;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
   color: var(--text-secondary);
+  margin-bottom: 2rem;
+  position: relative;
+  z-index: 1;
+}
+.scroll-text-stack {
+    position: relative;
+    height: 100px;
+    width: 100%;
+    z-index: 1;
+}
+.scroll-word {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    text-align: center;
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 5vw, 4.5rem);
+    font-weight: 900;
+    line-height: 1.1;
+    opacity: 0;
+    transform: translate(-50%, 40px);
+    transition: opacity 0.5s ease, transform 0.5s ease, color 0.3s ease;
+    pointer-events: none;
+    
+    /* Inactive state: Muted light gray (automatically flips to charcoal in dark) */
+    color: var(--scroll-text-inactive); 
+}
+
+/* Active State: Slides to center and turns solid high-contrast black (or white in dark) */
+.scroll-word.vinn-active {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+    color: var(--scroll-text-active); 
+    pointer-events: auto;
+}
+
+/* Exit State: Slides up and fades away */
+.scroll-word.vinn-exit {
+    opacity: 0;
+    transform: translate(-50%, -140px);
+    color: var(--scroll-text-inactive);
 }
 
 /* --- Hero Status Badge --- */
@@ -246,8 +303,8 @@
   display: inline-flex;
   align-items: center;
   gap: 0.75rem;
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: rgba(0, 0, 0, 0.03);
+  border: 1px solid rgba(0, 0, 0, 0.1);
   border-radius: 50px;
   padding: 0.8rem 1.5rem;
   font-family: var(--font-body);
@@ -266,7 +323,7 @@
 .status-badge:hover {
   background: var(--accent);
   border-color: var(--accent);
-  color: var(--bg-primary);
+  color: #1A1A1A;
 }
 
 .pulse-dot {
@@ -281,7 +338,7 @@
 }
 
 .status-badge:hover .pulse-dot {
-  background-color: var(--bg-primary);
+  background-color: #1A1A1A;
 }
 
 @keyframes pulse-glow {
@@ -299,35 +356,6 @@
   }
 }
 
-/* --- Name Marquee --- */
-.name-marquee {
-  width: 100vw;
-  overflow: hidden;
-  position: relative;
-  z-index: 2;
-  margin-top: 2rem;
-  margin-bottom: 0.5rem;
-}
-
-.marquee-container {
-  display: flex;
-  overflow: hidden;
-  white-space: nowrap;
-  width: 100%;
-}
-
-.marquee-part {
-  flex-shrink: 0;
-  display: inline-block;
-  font-family: var(--font-display);
-  font-weight: 800;
-  font-size: clamp(4.5rem, 10vw, 9.5rem);
-  text-transform: uppercase;
-  color: var(--text-primary);
-  letter-spacing: -0.03em;
-  padding-right: 1.5rem;
-  will-change: transform;
-}
 
 
 @media (max-width: 768px) {
@@ -579,8 +607,8 @@
    ========================= */
 .footer {
   padding: 6rem var(--container-padding) 3rem; /* Extra top padding for curved seam overlay clearance */
-  background-color: #1c1d20; /* Dennis Snellenberg dark grey */
-  color: #f0efe9; /* Muted light grey matching system */
+  background-color: #F0F0F0;
+  color: #1A1A1A;
   position: relative;
   z-index: 1;
 }
@@ -757,10 +785,10 @@
 /* --- Core Technologies Tags & Stats Styling --- */
 .tech-tag:hover {
   border-color: var(--accent) !important;
-  color: var(--bg-primary) !important;
+  color: #1A1A1A !important;
   background: var(--accent) !important;
   transform: translateY(-3px);
-  box-shadow: 0 10px 20px rgba(200, 255, 0, 0.15);
+  box-shadow: 0 10px 20px rgba(200, 255, 0, 0.2);
 }
 
 .stat-item {
@@ -768,15 +796,15 @@
   flex-direction: column;
   justify-content: flex-end;
   padding: 1.5rem;
-  background: rgba(255, 255, 255, 0.01);
+  background: rgba(0, 0, 0, 0.01);
   border: 1px solid var(--border-color);
   border-radius: var(--radius-md);
   transition: all 0.4s var(--ease-out);
 }
 
 .stat-item:hover {
-  border-color: rgba(255, 255, 255, 0.15);
-  background: rgba(255, 255, 255, 0.02);
+  border-color: rgba(0, 0, 0, 0.15);
+  background: rgba(0, 0, 0, 0.02);
   transform: translateY(-4px);
 }
 
@@ -822,7 +850,7 @@
 .cert-row-line {
   width: 100%;
   height: 1px;
-  background: rgba(255, 255, 255, 0.12);
+  background: rgba(0, 0, 0, 0.08);
   transform-origin: left center;
   transform: scaleX(1); /* GSAP will animate scaleX from 0 to 1 */
 }
@@ -952,7 +980,7 @@
   border-color: var(--border-color-hover);
   background: var(--bg-elevated);
   transform: translateY(-8px);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
 }
 
 .cert-premium-card:hover::before {
@@ -964,11 +992,11 @@
   margin-bottom: 2rem;
   overflow: hidden;
   aspect-ratio: 16 / 9;
-  background: rgba(255, 255, 255, 0.02);
+  background: rgba(0, 0, 0, 0.02);
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(0, 0, 0, 0.05);
 }
 
 .cert-card-img-preview img {
@@ -977,7 +1005,7 @@
   object-fit: contain;
   transition: transform 0.8s var(--ease-out),
               filter 0.8s var(--ease-out);
-  filter: grayscale(10%) brightness(0.9);
+  filter: grayscale(10%) brightness(0.95);
 }
 
 .cert-premium-card:hover .cert-card-img-preview img {
@@ -1048,7 +1076,7 @@
   font-family: var(--font-body);
   font-size: 0.8rem;
   color: var(--text-primary);
-  background: rgba(255, 255, 255, 0.03);
+  background: rgba(0, 0, 0, 0.02);
   border: 1px solid var(--border-color);
   padding: 0.35rem 0.75rem;
   border-radius: var(--radius-full);
@@ -1056,7 +1084,7 @@
 }
 
 .cert-premium-card:hover .tech-premium-pill {
-  border-color: rgba(255, 255, 255, 0.15);
+  border-color: rgba(0, 0, 0, 0.15);
 }
 
 .cert-premium-actions {
@@ -1110,4 +1138,15 @@
   width: 100%;
   height: 100%;
   display: block;
+}
+
+#vinn-particle-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1; /* Keeps it behind all content */
+    background-color: #FFFFFF; /* Matches our clean white theme */
+    pointer-events: none; /* Prevents canvas from capturing text clicks */
 }
