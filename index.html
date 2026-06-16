@@ -17,11 +17,11 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
   <!-- Stylesheets -->
-  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/base.css?v=1.0.1">
   <link rel="stylesheet" href="css/typography.css">
   <link rel="stylesheet" href="css/layout.css">
-  <link rel="stylesheet" href="css/components.css">
-  <link rel="stylesheet" href="css/sections.css">
+  <link rel="stylesheet" href="css/components.css?v=1.0.1">
+  <link rel="stylesheet" href="css/sections.css?v=1.0.1">
   <link rel="stylesheet" href="css/animations.css">
   <link rel="stylesheet" href="css/transitions.css">
 </head>
@@ -35,6 +35,23 @@
 
   <!-- Noise Overlay -->
   <div class="noise-overlay"></div>
+
+  <!-- Theme Toggle (Floating) -->
+  <div class="dribbble-toggle-wrapper" data-barba-prevent="all">
+    <input type="checkbox" id="vinn-theme-checkbox" class="theme-checkbox">
+    <label for="vinn-theme-checkbox" class="theme-toggle-label">
+      <div class="toggle-track">
+        <div class="toggle-switch-circle">
+          <span class="sun-ray-icon">☀️</span>
+          <span class="moon-crater-icon">🌙</span>
+        </div>
+        <div class="star-decorations">
+          <span class="star-dot s1"></span>
+          <span class="star-dot s2"></span>
+        </div>
+      </div>
+    </label>
+  </div>
 
 
 
@@ -74,21 +91,6 @@
           <a href="project.html" class="nav-link magnetic" data-magnetic>Projects</a>
           <a href="about.html" class="nav-link magnetic" data-magnetic>About</a>
           <a href="#contact" class="nav-link magnetic" data-magnetic>Contact</a>
-        </div>
-        <div class="dribbble-toggle-wrapper">
-          <input type="checkbox" id="vinn-theme-checkbox" class="theme-checkbox">
-          <label for="vinn-theme-checkbox" class="theme-toggle-label">
-            <div class="toggle-track">
-              <div class="toggle-switch-circle">
-                <span class="sun-ray-icon">☀️</span>
-                <span class="moon-crater-icon">🌙</span>
-              </div>
-              <div class="star-decorations">
-                <span class="star-dot s1"></span>
-                <span class="star-dot s2"></span>
-              </div>
-            </div>
-          </label>
         </div>
         <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu">
           <span></span>

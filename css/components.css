@@ -85,7 +85,7 @@
   font-size: 0.65rem;
   letter-spacing: 0.25em;
   text-transform: lowercase;
-  color: rgba(0, 0, 0, 0.4);
+  color: var(--text-muted);
   opacity: 0;
   transform: translateY(6px);
   transition: opacity 0.35s var(--ease-out),
@@ -99,7 +99,7 @@
 .nav-logo:hover .logo-tagline {
   opacity: 1 !important;
   transform: translateY(0);
-  color: #1A1A1A !important;
+  color: var(--text-primary) !important;
 }
 
 .nav-logo .accent {
@@ -256,10 +256,15 @@
   gap: 1.5rem;
 }
 
-/* --- Dribbble Theme Toggle Switch --- */
+/* --- Dribbble Theme Toggle Switch (Floating) --- */
 .dribbble-toggle-wrapper {
+  position: fixed;
+  bottom: 2rem;
+  left: 2rem;
+  z-index: 9995;
   display: flex;
   align-items: center;
+  pointer-events: auto;
 }
 
 .theme-checkbox {
@@ -567,7 +572,7 @@
   left: 0;
   width: 100%;
   padding: 2rem;
-  background: linear-gradient(to top, rgba(255,255,255,0.85), transparent);
+  background: linear-gradient(to top, var(--bg-overlay-gradient), transparent);
   transform: translateY(20px);
   opacity: 0;
   transition: transform 0.6s var(--ease-out),

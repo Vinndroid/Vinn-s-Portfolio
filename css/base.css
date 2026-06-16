@@ -76,6 +76,7 @@ ul, ol {
   --bg-secondary: #F5F5F5;
   --bg-elevated: #EBEBEB;
   --bg-overlay: rgba(255, 255, 255, 0.92);
+  --bg-overlay-gradient: rgba(255, 255, 255, 0.85);
 
   --text-primary: #1A1A1A;
   --text-secondary: #555555;
@@ -108,6 +109,7 @@ html[data-theme="dark"] {
   --bg-secondary: #1E1E24;
   --bg-elevated: #282830;
   --bg-overlay: rgba(17, 17, 17, 0.95);
+  --bg-overlay-gradient: rgba(17, 17, 17, 0.85);
 
   --text-primary: #FFFFFF;
   --text-secondary: #CCCCCC;
